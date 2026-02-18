@@ -4,17 +4,22 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 //  Modes 
 const MODES = {
-  github:    { label:"GitHub Classic", emoji:"", desc:"The OG green",           bg:"#0d1117", fog:"#0d1117", ground:"#161b22", grid:"#21262d", bgType:"stars",     stops:[[0,"#0e1117"],[0.01,"#0e4429"],[0.30,"#006d32"],[0.65,"#26a641"],[1.00,"#39d353"]] },
-  cyberpunk: { label:"Cyberpunk",      emoji:"", desc:"Neon city nights",        bg:"#05020f", fog:"#05020f", ground:"#0d0720", grid:"#1a0a3a", bgType:"grid",      stops:[[0,"#05020f"],[0.01,"#1a0050"],[0.25,"#00eeff"],[0.55,"#ff00ff"],[0.80,"#ffff00"],[1.00,"#ffffff"]] },
-  inferno:   { label:"Inferno",        emoji:"", desc:"Blazing heat",            bg:"#0a0004", fog:"#0a0004", ground:"#150008", grid:"#2a000f", bgType:"embers",    stops:[[0,"#000000"],[0.01,"#1b0030"],[0.20,"#6b0040"],[0.40,"#c0233e"],[0.65,"#f5622e"],[0.85,"#fca50a"],[1.00,"#fcf524"]] },
-  aurora:    { label:"Aurora",         emoji:"", desc:"Northern lights",         bg:"#020a14", fog:"#020a14", ground:"#030d1a", grid:"#0a1a2a", bgType:"aurora",    stops:[[0,"#020a14"],[0.01,"#0a1e3d"],[0.25,"#0a4d6e"],[0.50,"#0d7a5f"],[0.75,"#5c2d97"],[1.00,"#c47dff"]] },
-  volcano:   { label:"Volcano",        emoji:"", desc:"Lava rising",             bg:"#0a0000", fog:"#0a0000", ground:"#160500", grid:"#240500", bgType:"embers",    stops:[[0,"#0a0000"],[0.01,"#3a0000"],[0.20,"#7d0000"],[0.45,"#c92b00"],[0.70,"#ff6600"],[0.88,"#ffb700"],[1.00,"#fff700"]] },
-  ocean:     { label:"Deep Ocean",     emoji:"", desc:"Bioluminescent deep sea", bg:"#000814", fog:"#000814", ground:"#001a2e", grid:"#003060", bgType:"bubbles",   stops:[[0,"#000814"],[0.01,"#002855"],[0.25,"#0057b8"],[0.55,"#00a8e8"],[0.80,"#00f5d4"],[1.00,"#ffffff"]] },
-  matrix:    { label:"Matrix",         emoji:"", desc:"Follow the white rabbit", bg:"#000300", fog:"#000300", ground:"#001200", grid:"#003000", bgType:"matrix",    stops:[[0,"#000300"],[0.01,"#003300"],[0.30,"#00aa00"],[0.65,"#00ff41"],[1.00,"#ccffcc"]] },
-  galaxy:    { label:"Galaxy",         emoji:"", desc:"Across the cosmos",       bg:"#02000a", fog:"#02000a", ground:"#05001a", grid:"#0a0030", bgType:"stars",     stops:[[0,"#02000a"],[0.01,"#1a0050"],[0.30,"#4b0082"],[0.60,"#8b00ff"],[0.85,"#da70d6"],[1.00,"#fff0f5"]] },
-  candy:     { label:"Candy",          emoji:"", desc:"Sweet pastel overdose",   bg:"#1a0a1a", fog:"#1a0a1a", ground:"#2a0a2a", grid:"#3d1a3d", bgType:"bubbles",   stops:[[0,"#1a0a1a"],[0.01,"#4a0060"],[0.25,"#cc00cc"],[0.50,"#ff69b4"],[0.75,"#ff9de2"],[1.00,"#fff0fb"]] },
-  snake:     { label:"Snake Game",     emoji:"", desc:"Eat all contributions!",  bg:"#05100a", fog:"#05100a", ground:"#071a0e", grid:"#0d2a18", bgType:"stars",     stops:[[0,"#051508"],[0.01,"#0a3d1a"],[0.40,"#1a7a3a"],[0.80,"#2db554"],[1.00,"#5dfc8c"]] },
-  custom:    { label:"Custom",         emoji:"", desc:"Your own color palette",  bg:"#0a0a0a", fog:"#0a0a0a", ground:"#141414", grid:"#222222", bgType:"stars",     stops:[[0,"#0a0a0a"],[0.01,"#111111"],[1.00,"#ffffff"]] },
+  github:    { label:"GitHub Classic", emoji:"", desc:"The OG green",            bg:"#0d1117", fog:"#0d1117", ground:"#161b22", grid:"#21262d", rimLight:0x39d353, rough:0.55, metal:0.10, stops:[[0,"#161b22"],[0.01,"#1a4f2a"],[0.20,"#206b35"],[0.45,"#2ea043"],[0.75,"#3fb950"],[1.00,"#56d364"]] },
+  cyberpunk: { label:"Cyberpunk",      emoji:"", desc:"Neon city nights",         bg:"#04010d", fog:"#04010d", ground:"#0a051c", grid:"#150830", rimLight:0xff00ff, rough:0.15, metal:0.85, stops:[[0,"#0a051c"],[0.01,"#220066"],[0.20,"#0055cc"],[0.40,"#00ccff"],[0.65,"#ff00cc"],[0.85,"#ffee00"],[1.00,"#ffffff"]] },
+  inferno:   { label:"Inferno",        emoji:"", desc:"Blazing heat",             bg:"#080002", fog:"#080002", ground:"#120005", grid:"#250010", rimLight:0xff4400, rough:0.65, metal:0.05, stops:[[0,"#120005"],[0.01,"#3d0015"],[0.18,"#821030"],[0.38,"#cc2000"],[0.58,"#f05000"],[0.78,"#faa000"],[1.00,"#fff060"]] },
+  aurora:    { label:"Aurora",         emoji:"", desc:"Northern lights",          bg:"#010912", fog:"#010912", ground:"#030f1c", grid:"#071830", rimLight:0x7700ff, rough:0.30, metal:0.55, stops:[[0,"#030f1c"],[0.01,"#092040"],[0.20,"#0e4a6e"],[0.40,"#0a7a60"],[0.60,"#2060c0"],[0.80,"#7030b0"],[1.00,"#d080ff"]] },
+  volcano:   { label:"Volcano",        emoji:"", desc:"Lava rising",              bg:"#070000", fog:"#070000", ground:"#120300", grid:"#200400", rimLight:0xff3300, rough:0.70, metal:0.05, stops:[[0,"#120300"],[0.01,"#400000"],[0.18,"#8b0000"],[0.42,"#d42000"],[0.65,"#ff5500"],[0.85,"#ffaa00"],[1.00,"#ffee00"]] },
+  ocean:     { label:"Deep Ocean",     emoji:"", desc:"Bioluminescent deep sea",  bg:"#000610", fog:"#000610", ground:"#001525", grid:"#002848", rimLight:0x00f5d4, rough:0.20, metal:0.70, stops:[[0,"#001525"],[0.01,"#002d58"],[0.20,"#004a90"],[0.42,"#0082c8"],[0.65,"#00c8e0"],[0.85,"#00f0c0"],[1.00,"#b0fff0"]] },
+  matrix:    { label:"Matrix",         emoji:"", desc:"Follow the white rabbit",  bg:"#000200", fog:"#000200", ground:"#000f00", grid:"#002800", rimLight:0x00ff41, rough:0.80, metal:0.00, stops:[[0,"#000f00"],[0.01,"#002a00"],[0.25,"#007000"],[0.55,"#00c030"],[0.80,"#00ff41"],[1.00,"#ccffd8"]] },
+  galaxy:    { label:"Galaxy",         emoji:"", desc:"Across the cosmos",        bg:"#010008", fog:"#010008", ground:"#040012", grid:"#080028", rimLight:0xda70d6, rough:0.10, metal:0.90, stops:[[0,"#040012"],[0.01,"#1a0060"],[0.22,"#40008a"],[0.45,"#7000cc"],[0.68,"#a030e8"],[0.88,"#d870d8"],[1.00,"#fff0fe"]] },
+  candy:     { label:"Candy",          emoji:"", desc:"Sweet pastel overdose",    bg:"#160816", fog:"#160816", ground:"#240a24", grid:"#361436", rimLight:0xff69b4, rough:0.25, metal:0.45, stops:[[0,"#240a24"],[0.01,"#560070"],[0.22,"#b000b0"],[0.45,"#ee30a0"],[0.68,"#ff88cc"],[0.88,"#ffb8e8"],[1.00,"#fff0fc"]] },
+  snake:     { label:"Snake Game",     emoji:"", desc:"Eat all contributions!",   bg:"#040d07", fog:"#040d07", ground:"#061508", grid:"#0b2414", rimLight:0x3fb950, rough:0.55, metal:0.10, stops:[[0,"#061508"],[0.01,"#0d3818"],[0.35,"#1a7030"],[0.70,"#2db050"],[1.00,"#56f090"]] },
+  rave:      { label:"Rave Party",     emoji:"", desc:"Every bar its own beat!",  bg:"#050008", fog:"#050008", ground:"#0a0010", grid:"#10001a", rimLight:0xff00ff, rough:0.10, metal:0.95, stops:[[0,"#050008"],[0.5,"#ff00ff"],[1.00,"#00ffff"]] },
+  thunder:   { label:"Thunderstorm",   emoji:"", desc:"Lightning strikes the city!", bg:"#03050f", fog:"#03050f", ground:"#060a1a", grid:"#0a1030", rimLight:0x8888ff, rough:0.60, metal:0.20, stops:[[0,"#060a1a"],[0.01,"#0d1640"],[0.30,"#1a2a70"],[0.65,"#3050c0"],[1.00,"#e0e8ff"]] },
+  meltdown:  { label:"Meltdown",       emoji:"", desc:"Buildings melt like lava wax!",bg:"#080100", fog:"#080100", ground:"#180500", grid:"#280800", rimLight:0xff5500, rough:0.80, metal:0.00, stops:[[0,"#180500"],[0.01,"#4a1000"],[0.30,"#aa2200"],[0.60,"#ff6600"],[0.85,"#ffcc00"],[1.00,"#ffff88"]] },
+  earthquake:{ label:"Earthquake",     emoji:"", desc:"The ground tears apart!",     bg:"#050303", fog:"#050303", ground:"#1a0a06", grid:"#2a1008", rimLight:0xff8844, rough:0.85, metal:0.00, stops:[[0,"#1a0a06"],[0.01,"#3d1a10"],[0.30,"#7a3018"],[0.65,"#c05030"],[1.00,"#ff9060"]] },
+  typhoon:   { label:"Typhoon",        emoji:"", desc:"Category 5 — buildings fly!",  bg:"#010508", fog:"#010508", ground:"#050e14", grid:"#081824", rimLight:0x88ccff, rough:0.30, metal:0.50, stops:[[0,"#050e14"],[0.01,"#0a2030"],[0.30,"#104060"],[0.65,"#2080b0"],[1.00,"#80d0ff"]] },
+  custom:    { label:"Custom",         emoji:"", desc:"Your own color palette",   bg:"#0a0a0a", fog:"#0a0a0a", ground:"#141414", grid:"#222222", rimLight:0xffffff, rough:0.40, metal:0.20, stops:[[0,"#0a0a0a"],[0.01,"#111111"],[1.00,"#ffffff"]] },
 };
 
 const ZOOM_LEVELS = [
@@ -76,6 +81,9 @@ export default function Heatmap3D({ calendar }) {
   const [spinning,    setSpinning]    = useState(false);
   const [customColor, setCustomColor] = useState("#00ff88");
   const [customColor2,setCustomColor2]= useState("#ff00ff");
+  const modeRef     = useRef("github");
+  const spinningRef  = useRef(false);
+  const effectRef    = useRef(null); // tracks per-bar effect state for dramatic modes
 
   const weeks    = calendar.weeks;
   const total    = calendar.totalContributions;
@@ -92,16 +100,19 @@ export default function Heatmap3D({ calendar }) {
 
   //  Apply mode colors 
   const applyModeColors = useCallback((m) => {
-    const { barMap, scene } = sceneRef.current;
+    const { barMap, scene, rimLight: rl } = sceneRef.current;
     if (!barMap || !scene) return;
     const cfg   = MODES[m];
     const stops = getStops(m);
     scene.background = new THREE.Color(cfg.bg);
     if (scene.fog) scene.fog.color.set(cfg.fog);
+    if (rl) rl.color.set(cfg.rimLight);
     barMap.forEach(({ mesh, count }) => {
       const col = mapColor(count, maxCount, stops);
       mesh.material.color.set(col);
-      mesh.material.emissive.set(col.clone().multiplyScalar(0.12));
+      mesh.material.roughness = cfg.rough ?? 0.4;
+      mesh.material.metalness = cfg.metal ?? 0.15;
+      mesh.material.emissive.set(col.clone().multiplyScalar(count > 0 ? 0.18 : 0.0));
       mesh.userData.targetScaleY = 1;
     });
   }, [maxCount, getStops]);
@@ -147,11 +158,62 @@ export default function Heatmap3D({ calendar }) {
 
   //  Mode / color changes 
   useEffect(() => {
-    if (mode === "snake") return;
+    modeRef.current = mode;
+    const DRAMATIC = ["thunder","meltdown","earthquake","typhoon"];
+    if (mode === "snake" || mode === "rave" || DRAMATIC.includes(mode)) return;
     const sr = snakeRef.current;
     if (sr.running) { sr.running = false; clearInterval(sr.interval); setSnakeState("idle"); }
     applyModeColors(mode);
   }, [mode, customColor, customColor2, applyModeColors]);
+
+  // When switching TO rave, set scene bg/fog/rimLight immediately
+  useEffect(() => {
+    if (mode !== "rave") return;
+    const { scene, rimLight: rl } = sceneRef.current;
+    if (!scene) return;
+    const cfg = MODES.rave;
+    scene.background = new THREE.Color(cfg.bg);
+    if (scene.fog) scene.fog.color.set(cfg.fog);
+    if (rl) rl.color.set(cfg.rimLight);
+  }, [mode]);
+
+  // Dramatic mode setup — seed per-bar effect data then apply bg/rim
+  useEffect(() => {
+    const DRAMATIC = ["thunder","meltdown","earthquake","typhoon"];
+    if (!DRAMATIC.includes(mode)) return;
+    const { barMap, scene, rimLight: rl } = sceneRef.current;
+    if (!barMap || !scene) return;
+    const cfg = MODES[mode];
+    scene.background = new THREE.Color(cfg.bg);
+    if (scene.fog) scene.fog.color.set(cfg.fog);
+    if (rl) rl.color.set(cfg.rimLight);
+    // Reset meshes to upright + original color for this mode first
+    barMap.forEach(({ mesh, count }) => {
+      mesh.scale.y = 1;
+      mesh.rotation.set(0, 0, 0);
+      mesh.position.x = mesh.userData.wi;
+      mesh.position.z = mesh.userData.di;
+      const col = mapColor(count, maxCount, cfg.stops);
+      mesh.material.color.set(col);
+      mesh.material.roughness = cfg.rough;
+      mesh.material.metalness = cfg.metal;
+      mesh.material.emissive.set(col.clone().multiplyScalar(count > 0 ? 0.15 : 0));
+      // Per-bar effect seeds
+      mesh.userData.targetScaleY = 1;
+      mesh.userData.origCount    = mesh.userData.count; // store original count
+      mesh.userData.shakePhase   = Math.random() * Math.PI * 2;
+      mesh.userData.shakeAmp     = 0;
+      mesh.userData.meltSpeed    = 0.0004 + Math.random() * 0.0008; // meltdown
+      mesh.userData.meltTimer    = Math.random() * 120;              // staggered start
+      mesh.userData.quakeTimer   = Math.floor(Math.random() * 180);  // earthquake fall delay
+      mesh.userData.quakeFallen  = false;
+      mesh.userData.windDelay    = Math.floor(Math.random() * 200);  // typhoon
+      mesh.userData.windFallen   = false;
+      mesh.userData.lightStruck  = false;
+    });
+    effectRef.current = { frame: 0 };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode]);
 
   //  Zoom 
   useEffect(() => {
@@ -164,10 +226,11 @@ export default function Heatmap3D({ calendar }) {
 
   //  Spin toggle 
   useEffect(() => {
+    spinningRef.current = spinning;
     const { controls } = sceneRef.current;
     if (!controls) return;
     controls.autoRotate      = spinning;
-    controls.autoRotateSpeed = 2.8;
+    controls.autoRotateSpeed = 2.0;
   }, [spinning]);
 
   //  Build scene 
@@ -190,15 +253,27 @@ export default function Heatmap3D({ calendar }) {
     camera.position.set(26, 38, 72);
     camera.lookAt(26, 0, 3.5);
 
-    scene.add(new THREE.AmbientLight(0xffffff, 0.55));
-    const dir = new THREE.DirectionalLight(0xffffff, 1.3);
-    dir.position.set(40, 60, 40); dir.castShadow = true;
+    scene.add(new THREE.AmbientLight(0xffffff, 0.45));
+    const dir = new THREE.DirectionalLight(0xffffff, 1.5);
+    dir.position.set(40, 60, 40);
+    dir.castShadow = true;
     dir.shadow.mapSize.set(2048, 2048);
-    dir.shadow.camera.near = 1; dir.shadow.camera.far = 250;
-    dir.shadow.camera.left = dir.shadow.camera.bottom = -80;
-    dir.shadow.camera.right = dir.shadow.camera.top   =  80;
+    dir.shadow.camera.near = 1; dir.shadow.camera.far = 300;
+    dir.shadow.camera.left = dir.shadow.camera.bottom = -90;
+    dir.shadow.camera.right = dir.shadow.camera.top   =  90;
+    dir.target.position.set(26, 0, 3.5); // always aim at scene center
     scene.add(dir);
-    scene.add(new THREE.PointLight(0x4ade80, 0.4, 100));
+    scene.add(dir.target);
+    // Rim / fill light — color changes with mode
+    const rimLight = new THREE.PointLight(MODES.github.rimLight, 0.7, 180);
+    rimLight.position.set(-20, 30, -10);
+    scene.add(rimLight);
+    // Subtle under-fill
+    const fillLight = new THREE.DirectionalLight(0x334466, 0.3);
+    fillLight.position.set(-30, -20, 40);
+    scene.add(fillLight);
+    // Running angle for light orbit
+    let lightAngle = Math.atan2(40 - 3.5, 40 - 26); // initial angle matching starting position
 
     const ground = new THREE.Mesh(
       new THREE.PlaneGeometry(100, 30),
@@ -230,7 +305,7 @@ export default function Heatmap3D({ calendar }) {
         const geo   = new THREE.BoxGeometry(0.82, barH, 0.82);
         geo.translate(0, barH / 2, 0);
         const col = mapColor(count, maxCount, MODES.github.stops);
-        const mat = new THREE.MeshStandardMaterial({ color: col, emissive: col.clone().multiplyScalar(0.12), roughness: 0.4, metalness: 0.15 });
+        const mat = new THREE.MeshStandardMaterial({ color: col, emissive: col.clone().multiplyScalar(count > 0 ? 0.18 : 0), roughness: MODES.github.rough, metalness: MODES.github.metal, envMapIntensity: 1.0 });
         const mesh = new THREE.Mesh(geo, mat);
         mesh.position.set(wi, 0, di); mesh.castShadow = mesh.receiveShadow = true;
         mesh.userData = { date: day.date, count, wi, di, targetScaleY: 1 };
@@ -268,19 +343,158 @@ export default function Heatmap3D({ calendar }) {
     function onResize() { const w = el.clientWidth, h = el.clientHeight; camera.aspect = w/h; camera.updateProjectionMatrix(); renderer.setSize(w, h); }
     window.addEventListener("resize", onResize);
 
-    let animId;
+    // Rave: per-bar hue offsets seeded randomly
+    const raveOffsets = new Map();
+    barMap.forEach((_, key) => { raveOffsets.set(key, Math.random() * Math.PI * 2); });
+
+    // Store orig positions for earthquake/typhoon reset
+    barMap.forEach(({ mesh }) => {
+      mesh.userData.origX = mesh.position.x;
+      mesh.userData.origZ = mesh.position.z;
+    });
+
+    // Thunder: flash point light
+    const boltLight = new THREE.PointLight(0xaaccff, 0, 120);
+    boltLight.position.set(26, 50, 3.5);
+    scene.add(boltLight);
+    let nextBolt = 60 + Math.floor(Math.random() * 120);
+
+    let animId, frame = 0;
+    // Exact formula OrbitControls uses internally: 2π / 3600 * autoRotateSpeed per frame
+    const SPIN_RAD = (2 * Math.PI / 3600) * 2.8;
+    const ORBIT_R  = 55; // orbit radius of the sun light around scene center
     function animate() {
       animId = requestAnimationFrame(animate);
-      barMap.forEach(({ mesh }) => {
-        const tgt = mesh.userData.targetScaleY ?? 1;
+      frame++;
+      const currentMode = modeRef.current;
+      // Orbit dir light around scene center so shadows sweep across bars
+      if (spinningRef.current) {
+        lightAngle -= SPIN_RAD;
+        dir.position.set(
+          26 + Math.cos(lightAngle) * ORBIT_R,
+          62,
+          3.5 + Math.sin(lightAngle) * ORBIT_R
+        );
+        dir.shadow.camera.updateProjectionMatrix();
+      }
+      barMap.forEach(({ mesh, count }, key) => {
+        const ud  = mesh.userData;
+        const tgt = ud.targetScaleY ?? 1;
         if (Math.abs(mesh.scale.y - tgt) > 0.001) mesh.scale.y += (tgt - mesh.scale.y) * 0.14;
+
+        // ---- THUNDER ----
+        if (currentMode === "thunder" && count > 0) {
+          // Random lightning strike on this bar
+          if (frame === (ud.nextStrike ?? -1)) {
+            ud.nextStrike = frame + 80 + Math.floor(Math.random() * 300);
+            mesh.material.emissive.set(new THREE.Color(1, 1, 1));
+            mesh.userData.flashOut = frame + 6;
+          }
+          if (ud.flashOut && frame >= ud.flashOut) {
+            const col = mapColor(count, maxCount, MODES.thunder.stops);
+            mesh.material.emissive.set(col.clone().multiplyScalar(0.15));
+            ud.flashOut = null;
+          }
+          if (!ud.nextStrike) ud.nextStrike = frame + Math.floor(Math.random() * 300);
+        }
+
+        // ---- MELTDOWN ----
+        if (currentMode === "meltdown" && count > 0) {
+          if (ud.meltTimer > 0) { ud.meltTimer--; }
+          else {
+            // Scale Y down slowly — melting
+            if (mesh.scale.y > 0.02) {
+              mesh.scale.y = Math.max(0.02, mesh.scale.y - ud.meltSpeed);
+              // As it melts, color shifts to cool ash gray
+              const t = 1 - mesh.scale.y;
+              const meltCol = new THREE.Color("#ff6600").lerp(new THREE.Color("#332200"), t);
+              mesh.material.color.set(meltCol);
+              mesh.material.emissive.set(meltCol.clone().multiplyScalar(0.25 * (1 - t)));
+            }
+            ud.targetScaleY = mesh.scale.y; // prevent snap-back
+          }
+        }
+
+        // ---- EARTHQUAKE ----
+        if (currentMode === "earthquake") {
+          if (!ud.quakeFallen) {
+            if (ud.quakeTimer > 0) {
+              // Shaking phase: oscillate x/z
+              ud.quakeTimer--;
+              const amp = 0.08 + (ud.quakeTimer / 180) * 0.1;
+              mesh.position.x = ud.origX + Math.sin(frame * 0.6 + ud.shakePhase) * amp;
+              mesh.position.z = ud.origZ + Math.cos(frame * 0.5 + ud.shakePhase) * amp;
+            } else {
+              // Fall: tilt sideways then scale y to 0
+              const dir2 = (ud.wi % 2 === 0 ? 1 : -1) * (ud.di % 2 === 0 ? 1 : -1);
+              mesh.rotation.z += dir2 * 0.04;
+              mesh.position.x = ud.origX + Math.sin(mesh.rotation.z) * 0.5;
+              if (Math.abs(mesh.rotation.z) > Math.PI / 2) {
+                mesh.rotation.z = Math.sign(mesh.rotation.z) * Math.PI / 2;
+                if (mesh.scale.y > 0.04) { mesh.scale.y -= 0.015; ud.targetScaleY = mesh.scale.y; }
+                else { ud.quakeFallen = true; }
+              }
+              const dustCol = new THREE.Color("#c05030").lerp(new THREE.Color("#3a1a0a"), Math.min(1, Math.abs(mesh.rotation.z) / (Math.PI/2)));
+              mesh.material.color.set(dustCol);
+            }
+          }
+        }
+
+        // ---- TYPHOON ----
+        if (currentMode === "typhoon" && count > 0) {
+          if (ud.windDelay > 0) { ud.windDelay--; }
+          else if (!ud.windFallen) {
+            // Lean progressively in wind direction (z axis tilt)
+            const lean = Math.min(Math.PI / 2, (ud.windLean ?? 0) + 0.05);
+            ud.windLean = lean;
+            mesh.rotation.z = lean * ((ud.wi % 3 === 0) ? -1 : 1);
+            // Shrink and drift
+            if (lean > 0.6) {
+              mesh.scale.y = Math.max(0.02, mesh.scale.y - 0.03);
+              mesh.position.x += ((ud.wi % 3 === 0) ? -0.04 : 0.04);
+              ud.targetScaleY = mesh.scale.y;
+            }
+            if (lean >= Math.PI / 2 && mesh.scale.y <= 0.04) ud.windFallen = true;
+            const windCol = new THREE.Color("#2080b0").lerp(new THREE.Color("#80d0ff"), lean / (Math.PI/2));
+            mesh.material.color.set(windCol);
+            mesh.material.emissive.set(windCol.clone().multiplyScalar(0.2));
+          }
+        }
+
+        // Rave: cycle hue per bar independently
+        if (currentMode === "rave" && count > 0) {
+          const offset = raveOffsets.get(key) || 0;
+          const speed  = 0.012 + (count / maxCount) * 0.025; // faster for taller bars
+          const hue    = ((frame * speed + offset) % (Math.PI * 2)) / (Math.PI * 2);
+          const sat    = 0.9 + Math.sin(frame * 0.007 + offset) * 0.1;
+          const lit    = 0.45 + (count / maxCount) * 0.25;
+          const col    = new THREE.Color().setHSL(hue, sat, lit);
+          mesh.material.color.set(col);
+          mesh.material.emissive.set(col.clone().multiplyScalar(0.35));
+          mesh.material.roughness = MODES.rave.rough;
+          mesh.material.metalness = MODES.rave.metal;
+        }
       });
+
+      // Thunder: flash the bolt light
+      if (currentMode === "thunder") {
+        if (frame >= nextBolt) {
+          boltLight.position.set(10 + Math.random() * 32, 40 + Math.random() * 20, Math.random() * 7);
+          boltLight.intensity = 6 + Math.random() * 4;
+          nextBolt = frame + 5;
+          // schedule off
+          if (Math.random() > 0.5) nextBolt = frame + 60 + Math.floor(Math.random() * 180);
+        }
+        boltLight.intensity *= 0.82; // quick decay
+      } else {
+        boltLight.intensity = 0;
+      }
       controls.update();
       renderer.render(scene, camera);
     }
     animate();
 
-    sceneRef.current = { barMap, renderer, scene, camera, controls };
+    sceneRef.current = { barMap, renderer, scene, camera, controls, rimLight, dir };
 
     return () => {
       cancelAnimationFrame(animId); controls.dispose(); renderer.dispose();
