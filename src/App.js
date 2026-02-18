@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import Heatmap from "./component/Heatmap3D";
+import { url } from "./component/url";
 
 export default function App() {
   const currentYear = new Date().getFullYear();
@@ -22,7 +23,7 @@ export default function App() {
 
     try {
       const res = await axios.get(
-        `http://localhost:5000/contributions/${uname}/${year}`
+        `${url}/contributions/${uname}/${year}`
       );
       setCalendar(res.data);
     } catch (err) {

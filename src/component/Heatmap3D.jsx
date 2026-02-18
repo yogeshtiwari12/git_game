@@ -504,7 +504,6 @@ export default function Heatmap3D({ calendar }) {
       window.removeEventListener("resize", onResize);
       if (renderer.domElement.parentNode === el) el.removeChild(renderer.domElement);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calendar]);
 
   const cfg = MODES[mode];
